@@ -51,11 +51,11 @@ echo '<div class="section-heading">
 
 
 //terbaru
-$qyuk2 = mysql_query("SELECT * FROM cp_artikel ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 						"WHERE judul LIKE '%$kunci%' ".
 						"OR isi LIKE '%$kunci%' ".
 						"ORDER BY postdate DESC");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 
 do
 	{
@@ -91,7 +91,7 @@ do
     </div>';
 
 	}
-while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 
 
 //isi
@@ -156,9 +156,9 @@ ob_start();
 
 
 //kasi random
-$qyuk2 = mysql_query("SELECT * FROM cp_g_foto ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_g_foto ".
 						"ORDER BY RAND()");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 $yuk2_kd = nosql($ryuk2['kd']);
 $yuk2_nama = balikin($ryuk2['nama']);
 $yuk2_filex = balikin($ryuk2['filex']);

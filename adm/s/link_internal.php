@@ -79,7 +79,7 @@ if ($_POST['btnSMP'])
 		//jika update
 		if ($s == "edit")
 			{
-			mysql_query("UPDATE cp_link_internal SET nama = '$e_nama', ".
+			mysqli_query($koneksi, "UPDATE cp_link_internal SET nama = '$e_nama', ".
 							"urlnya = '$e_isi' ".
 							"WHERE kd = '$kd'");
 
@@ -95,10 +95,10 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM cp_link_internal ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM cp_link_internal ".
 									"WHERE nama = '$e_nama'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -111,7 +111,7 @@ if ($_POST['btnSMP'])
 				}
 			else
 				{
-				mysql_query("INSERT INTO cp_link_internal(kd, nama, urlnya, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO cp_link_internal(kd, nama, urlnya, postdate) VALUES ".
 								"('$kd', '$e_nama', '$e_isi', '$today')");
 
 
@@ -143,7 +143,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_link_internal ".
+		mysqli_query($koneksi, "DELETE FROM cp_link_internal ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -185,11 +185,11 @@ $sqlcount = "SELECT * FROM cp_link_internal ".
 				"ORDER BY nama ASC";
 $sqlresult = $sqlcount;
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 
 //view //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -201,9 +201,9 @@ if (($s == "baru") OR ($s == "edit"))
 	{
 	$kdx = nosql($_REQUEST['kd']);
 
-	$qx = mysql_query("SELECT * FROM cp_link_internal ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_link_internal ".
 						"WHERE kd = '$kdx'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_nama = balikin($rowx['nama']);
 	$e_isi = balikin($rowx['urlnya']);
 
@@ -315,7 +315,7 @@ else
 
 	        </tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 	
 	

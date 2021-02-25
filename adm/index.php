@@ -23,22 +23,22 @@ $judulku = "$judul  [$adm_session]";
 
 
 //jml pegawai
-$qyuk = mysql_query("SELECT * FROM cp_m_pegawai");
-$jml_pegawai = mysql_num_rows($qyuk);
+$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_m_pegawai");
+$jml_pegawai = mysqli_num_rows($qyuk);
 
 
 //jml siswa
-$qyuk = mysql_query("SELECT * FROM cp_m_siswa");
-$jml_siswa = mysql_num_rows($qyuk);
+$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_m_siswa");
+$jml_siswa = mysqli_num_rows($qyuk);
 
 //jml visitor
-$qyuk = mysql_query("SELECT * FROM cp_visitor");
-$jml_visitor = mysql_num_rows($qyuk);
+$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_visitor");
+$jml_visitor = mysqli_num_rows($qyuk);
 
 
 //jml artikel
-$qyuk = mysql_query("SELECT * FROM cp_artikel");
-$jml_artikel = mysql_num_rows($qyuk);
+$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_artikel");
+$jml_artikel = mysqli_num_rows($qyuk);
 
 
 
@@ -108,11 +108,11 @@ for($i=0; $i<=7; $i++)
 
 
 	//ketahui ordernya...
-	$qyuk = mysql_query("SELECT * FROM cp_visitor ".
+	$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_visitor ".
 							"WHERE round(DATE_FORMAT(postdate, '%d')) = '$itgl' ".
 							"AND round(DATE_FORMAT(postdate, '%m')) = '$ibln' ".
 							"AND round(DATE_FORMAT(postdate, '%Y')) = '$itahun'");
-	$tyuk = mysql_num_rows($qyuk);
+	$tyuk = mysqli_num_rows($qyuk);
 	
 	if (empty($tyuk))
 		{

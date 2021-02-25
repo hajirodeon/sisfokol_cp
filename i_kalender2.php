@@ -104,12 +104,12 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'xbln1'))
 			
 			
 			//cek event
-			$qku = mysql_query("SELECT * FROM cp_kalender_detail ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_kalender_detail ".
 									"WHERE round(DATE_FORMAT(tgli, '%d')) = '$list_day' ".
 									"AND round(DATE_FORMAT(tgli, '%m')) = '$month' ".
 									"AND round(DATE_FORMAT(tgli, '%Y')) = '$year'");
-			$rku = mysql_fetch_assoc($qku);
-			$tku = mysql_num_rows($qku);
+			$rku = mysqli_fetch_assoc($qku);
+			$tku = mysqli_num_rows($qku);
 			
 			//jika ada agenda
 			if (!empty($tku))
@@ -359,12 +359,12 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'xbln2'))
 			
 			
 			//cek event
-			$qku = mysql_query("SELECT * FROM cp_kalender_detail ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_kalender_detail ".
 									"WHERE round(DATE_FORMAT(tgli, '%d')) = '$list_day' ".
 									"AND round(DATE_FORMAT(tgli, '%m')) = '$month' ".
 									"AND round(DATE_FORMAT(tgli, '%Y')) = '$year'");
-			$rku = mysql_fetch_assoc($qku);
-			$tku = mysql_num_rows($qku);
+			$rku = mysqli_fetch_assoc($qku);
+			$tku = mysqli_num_rows($qku);
 			
 			//jika ada agenda
 			if (!empty($tku))
@@ -565,12 +565,12 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'nyata'))
 			
 			
 			//cek event
-			$qku = mysql_query("SELECT * FROM cp_kalender_detail ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_kalender_detail ".
 									"WHERE round(DATE_FORMAT(tgli, '%d')) = '$list_day' ".
 									"AND round(DATE_FORMAT(tgli, '%m')) = '$month' ".
 									"AND round(DATE_FORMAT(tgli, '%Y')) = '$year'");
-			$rku = mysql_fetch_assoc($qku);
-			$tku = mysql_num_rows($qku);
+			$rku = mysqli_fetch_assoc($qku);
+			$tku = mysqli_num_rows($qku);
 			
 			//jika ada agenda
 			if (!empty($tku))
@@ -735,12 +735,12 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'lihat'))
         <div class="info-box-content">';
 		
 			//cek event
-			$qku = mysql_query("SELECT * FROM cp_kalender_detail ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_kalender_detail ".
 									"WHERE round(DATE_FORMAT(tgli, '%d')) = '$tglku' ".
 									"AND round(DATE_FORMAT(tgli, '%m')) = '$blnku' ".
 									"AND round(DATE_FORMAT(tgli, '%Y')) = '$thnku'");
-			$rku = mysql_fetch_assoc($qku);
-			$tku = mysql_num_rows($qku);
+			$rku = mysqli_fetch_assoc($qku);
+			$tku = mysqli_num_rows($qku);
 			
 			do
 				{
@@ -751,7 +751,7 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'lihat'))
 				echo "<p>$ku_judul</p>
 				<hr>";	
 				}
-			while ($rku = mysql_fetch_assoc($qku));
+			while ($rku = mysqli_fetch_assoc($qku));
 		
 
 

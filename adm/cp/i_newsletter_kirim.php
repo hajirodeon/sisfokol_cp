@@ -23,9 +23,9 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'simpan'))
 	
 	
 	//artikel terbaru...
-	$qyus = mysql_query("SELECT * FROM cp_artikel ".
+	$qyus = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 							"ORDER BY postdate DESC LIMIT 0,1");
-	$ryus = mysql_fetch_assoc($qyus);
+	$ryus = mysqli_fetch_assoc($qyus);
 	//nilai
 	$yus_kd = nosql($ryus['kd']);
 	$yus_judul = balikin($ryus['judul']);
@@ -39,8 +39,8 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'simpan'))
 	
 	
 	//detail
-	$qku = mysql_query("SELECT * FROM m_profil");
-	$rku = mysql_fetch_assoc($qku);
+	$qku = mysqli_query($koneksi, "SELECT * FROM m_profil");
+	$rku = mysqli_fetch_assoc($qku);
 	$ku_nama = balikin($rku['nama']);
 	$ku_email = balikin($rku['email']);
 	$ku_web = balikin($rku['web']);
@@ -48,9 +48,9 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'simpan'))
 		
 	
 	//daftar
-	$qyuk = mysql_query("SELECT * FROM cp_newsletter ".
+	$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_newsletter ".
 							"ORDER BY postdate DESC");
-	$ryuk = mysql_fetch_assoc($qyuk);
+	$ryuk = mysqli_fetch_assoc($qyuk);
 	
 	do
 		{
@@ -75,7 +75,7 @@ $ku_web";
 		$headers = "From:" . $from;
 		mail($to,$subject,$message, $headers);
 		}
-	while ($ryuk = mysql_fetch_assoc($qyuk));
+	while ($ryuk = mysqli_fetch_assoc($qyuk));
 							
 						
 

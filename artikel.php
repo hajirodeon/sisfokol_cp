@@ -25,15 +25,15 @@ $filenya_ke = $sumber;
 
 
 //update
-mysql_query("UPDATE cp_artikel SET jml_dilihat = jml_dilihat + 1 ".
+mysqli_query($koneksi, "UPDATE cp_artikel SET jml_dilihat = jml_dilihat + 1 ".
 				"WHERE kd = '$artkd'");
 
 		
 
 //rincian
-$qku = mysql_query("SELECT * FROM cp_artikel ".
+$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 						"WHERE kd = '$artkd'");
-$rku = mysql_fetch_assoc($qku);
+$rku = mysqli_fetch_assoc($qku);
 $ku_judul = balikin($rku['judul']);
 $ku_isi = balikin($rku['isi']);
 $ku_filex = balikin($rku['filex']);
@@ -50,9 +50,9 @@ $ku_filex21 = "filebox/artikel/$artkd/$ku_filex";
 
 
 //kategori
-$qku2 = mysql_query("SELECT * FROM cp_m_kategori ".
+$qku2 = mysqli_query($koneksi, "SELECT * FROM cp_m_kategori ".
 						"WHERE kd = '$ku_katkd'");
-$rku2 = mysql_fetch_assoc($qku2);
+$rku2 = mysqli_fetch_assoc($qku2);
 $ku2_kategori = balikin($rku2['nama']);
 
 
@@ -245,9 +245,9 @@ ob_start();
 
 
 //kasi random
-$qyuk2 = mysql_query("SELECT * FROM cp_g_foto ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_g_foto ".
 						"ORDER BY RAND()");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 $yuk2_kd = nosql($ryuk2['kd']);
 $yuk2_nama = balikin($ryuk2['nama']);
 $yuk2_filex = balikin($ryuk2['filex']);
@@ -332,7 +332,7 @@ if (!empty($kata5))
 
 
 //daftar artikel terkait
-$qku = mysql_query("SELECT * FROM cp_artikel ".
+$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 						"WHERE $q_kata1 ".
 						"$q_kata2 ".	
 						"$q_kata2 ".	
@@ -340,15 +340,15 @@ $qku = mysql_query("SELECT * FROM cp_artikel ".
 						"$q_kata4 ".	
 						"$q_kata5 ".	
 						"ORDER BY postdate DESC LIMIT 0,3");
-$rku = mysql_fetch_assoc($qku);
-$tku = mysql_num_rows($qku);
+$rku = mysqli_fetch_assoc($qku);
+$tku = mysqli_num_rows($qku);
 
 //jika gak ada, kasi terbaru
 if (empty($tku))
 	{
-	$qku = mysql_query("SELECT * FROM cp_artikel ".
+	$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 							"ORDER BY postdate DESC LIMIT 0,3");
-	$rku = mysql_fetch_assoc($qku);		
+	$rku = mysqli_fetch_assoc($qku);		
 	}
 
 	
@@ -385,7 +385,7 @@ do
 	</div>
 	</div>';
 	}
-while ($rku = mysql_fetch_assoc($qku));
+while ($rku = mysqli_fetch_assoc($qku));
 
 //isi
 $i_artikel_terkait = ob_get_contents();
@@ -408,12 +408,12 @@ ob_start();
 echo '<ol>';
 
 
-$qku = mysql_query("SELECT * FROM cp_artikel_komentar ".
+$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel_komentar ".
 						"WHERE kd_artikel = '$artkd' ".
 						"AND aktif = 'true' ".
 						"ORDER BY postdate DESC");
-$rku = mysql_fetch_assoc($qku);		
-$tku = mysql_num_rows($qku);
+$rku = mysqli_fetch_assoc($qku);		
+$tku = mysqli_num_rows($qku);
 
 
 //jika ada
@@ -453,7 +453,7 @@ if (!empty($tku))
 	    </li>';
 	
 		}
-	while ($rku = mysql_fetch_assoc($qku));
+	while ($rku = mysqli_fetch_assoc($qku));
 	}
 
 else

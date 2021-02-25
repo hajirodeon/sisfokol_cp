@@ -4,9 +4,9 @@ echo '<ul>
     
 	
 	//list menu
-	$qyuk = mysql_query("SELECT * FROM cp_m_menu ".
+	$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_m_menu ".
 							"ORDER BY round(no) ASC");
-	$ryuk = mysql_fetch_assoc($qyuk);
+	$ryuk = mysqli_fetch_assoc($qyuk);
 	
 	do
 		{
@@ -20,10 +20,10 @@ echo '<ul>
 		
 		
 		//rincian submenu
-		$qyuk2 = mysql_query("SELECT * FROM cp_m_submenu ".
+		$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_m_submenu ".
 								"WHERE kd_menu = '$yuk_kd' ".
 								"ORDER BY round(no) ASC");
-		$ryuk2 = mysql_fetch_assoc($qyuk2);
+		$ryuk2 = mysqli_fetch_assoc($qyuk2);
 		
 		do
 			{
@@ -35,13 +35,13 @@ echo '<ul>
 			
 	        echo '<li><a href="artikel.php?artkd='.$yuk2_artkd.'&'.$yuk2_nama2.'">'.$yuk2_nama.'</a></li>';
 			}
-		while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+		while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 			
 			
 	    echo '</ul>
 	    </li>';
 		}
-	while ($ryuk = mysql_fetch_assoc($qyuk));
+	while ($ryuk = mysqli_fetch_assoc($qyuk));
 
     echo '<li><a href="hubungi_kami.php">HUBUNGI KAMI</a></li>
 </ul>';

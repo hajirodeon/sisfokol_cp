@@ -100,14 +100,14 @@ if ($_POST['btnSMP'])
 		//jika update
 		if ($s == "edit")
 			{
-			mysql_query("UPDATE cp_m_pegawai SET nip = '$e_nip', ".
+			mysqli_query($koneksi, "UPDATE cp_m_pegawai SET nip = '$e_nip', ".
 							"nama = '$e_nama', ".
 							"status = '$e_status', ".
 							"jabatan = '$e_jabatan' ".
 							"WHERE kd = '$kd'");
 
 			//update
-			mysql_query("UPDATE cp_m_pegawai SET filex1 = '$namabaru', ".
+			mysqli_query($koneksi, "UPDATE cp_m_pegawai SET filex1 = '$namabaru', ".
 							"postdate = '$today' ".
 							"WHERE kd = '$kd'");
 
@@ -122,10 +122,10 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM cp_m_pegawai ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM cp_m_pegawai ".
 									"WHERE nip = '$e_nip'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -138,12 +138,12 @@ if ($_POST['btnSMP'])
 				}
 			else
 				{
-				mysql_query("INSERT INTO cp_m_pegawai(kd, nip, nama, status, jabatan, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO cp_m_pegawai(kd, nip, nama, status, jabatan, postdate) VALUES ".
 								"('$kd', '$e_nip', '$e_nama', '$e_status', '$e_jabatan', '$today')");
 
 								
 				//update
-				mysql_query("UPDATE cp_m_pegawai SET filex1 = '$namabaru', ".
+				mysqli_query($koneksi, "UPDATE cp_m_pegawai SET filex1 = '$namabaru', ".
 								"postdate = '$today' ".
 								"WHERE kd = '$kd'");
 											
@@ -176,7 +176,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_m_pegawai ".
+		mysqli_query($koneksi, "DELETE FROM cp_m_pegawai ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -216,9 +216,9 @@ if (($s == "baru") OR ($s == "edit"))
 	{
 	$kdx = nosql($_REQUEST['kd']);
 
-	$qx = mysql_query("SELECT * FROM cp_m_pegawai ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_m_pegawai ".
 						"WHERE kd = '$kdx'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_nip = balikin($rowx['nip']);
 	$e_nama = balikin($rowx['nama']);
 	$e_status = balikin($rowx['status']);
@@ -466,11 +466,11 @@ else
 	
 	$sqlresult = $sqlcount;
 	
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 	
 	
 	
@@ -550,7 +550,7 @@ else
 			</td>
 	        </tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 	
 	

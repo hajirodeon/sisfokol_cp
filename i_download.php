@@ -1,8 +1,8 @@
 <?php
 //kategori
-$qyuk2 = mysql_query("SELECT * FROM cp_m_download ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_m_download ".
 						"ORDER BY nama ASC");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 
 
 echo '<ul class="catagory-widgets">';
@@ -21,7 +21,7 @@ do
 
     echo '<li><a href="'.$sumber.'/filebox/download/'.$yuk2_kd.'/'.$yuk2_filex.'"><span><i class="fa fa-angle-double-right" aria-hidden="true"></i> '.$yuk2_nama.'</span> </a></li>';
 	}
-while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 
 
 echo '</ul>';

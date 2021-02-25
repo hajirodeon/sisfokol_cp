@@ -50,7 +50,7 @@ if($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_artikel_komentar ".
+		mysqli_query($koneksi, "DELETE FROM cp_artikel_komentar ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -77,11 +77,11 @@ if ($_POST['btnSMP'])
 	
 	
 	//update dulu...
-	mysql_query("UPDATE cp_artikel_komentar SET aktif = 'true' ".
+	mysqli_query($koneksi, "UPDATE cp_artikel_komentar SET aktif = 'true' ".
 					"WHERE kd = '$kdku'");
 	
 	//insert
-	mysql_query("INSERT INTO cp_artikel_komentar(kd, kd_artikel, nama, isi, aktif, postdate) VALUES ".
+	mysqli_query($koneksi, "INSERT INTO cp_artikel_komentar(kd, kd_artikel, nama, isi, aktif, postdate) VALUES ".
 					"('$x', '$katkd', 'ADMIN', '$e_balas', 'true', '$today')");
 	
 	
@@ -117,17 +117,17 @@ echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" na
 if ($s == "balas")
 	{
 	//rincian komentar
-	$qku = mysql_query("SELECT * FROM cp_artikel_komentar ".
+	$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel_komentar ".
 							"WHERE kd = '$kdku'");
-	$rku = mysql_fetch_assoc($qku);
+	$rku = mysqli_fetch_assoc($qku);
 	$ku_artkd = nosql($rku['kd_artikel']);
 	$ku_isi = balikin($rku['isi']);
 	$ku_nama = balikin($rku['nama']);
 	
 	//detail artikel
-	$qku2 = mysql_query("SELECT * FROM cp_artikel ".
+	$qku2 = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 						"WHERE kd = '$ku_artkd'");
-	$rku2 = mysql_fetch_assoc($qku2);
+	$rku2 = mysqli_fetch_assoc($qku2);
 	$ku2_artikel = balikin($rku2['judul']);
 
 
@@ -175,11 +175,11 @@ else
 					"ORDER BY postdate DESC";
 	$sqlresult = $sqlcount;
 	
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 	
 	
 	if ($count != 0)
@@ -240,9 +240,9 @@ else
 	
 	
 			//detail artikel
-			$qku = mysql_query("SELECT * FROM cp_artikel ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 								"WHERE kd = '$i_katkd'");
-			$rku = mysql_fetch_assoc($qku);
+			$rku = mysqli_fetch_assoc($qku);
 			$ku_artikel = balikin($rku['judul']);
 	
 	
@@ -281,7 +281,7 @@ else
 			echo '</td>
 			</tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 	
 		echo '</tbody>
 			  </table>

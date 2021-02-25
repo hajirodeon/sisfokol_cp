@@ -17,8 +17,8 @@
 
 
 <?php
-$qx = mysql_query("SELECT * FROM cp_sambutan_ks");
-$rowx = mysql_fetch_assoc($qx);
+$qx = mysqli_query($koneksi, "SELECT * FROM cp_sambutan_ks");
+$rowx = mysqli_fetch_assoc($qx);
 $e_nama = balikin($rowx['nama']);
 $e_isi = balikin2($rowx['isi']);
 $e_filex1 = balikin($rowx['filex1']);

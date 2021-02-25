@@ -1,8 +1,8 @@
 <?php
 //form
-$qcc = mysql_query("SELECT * FROM cp_polling");
-$rcc = mysql_fetch_assoc($qcc);
-$tcc = mysql_num_rows($qcc);
+$qcc = mysqli_query($koneksi, "SELECT * FROM cp_polling");
+$rcc = mysqli_fetch_assoc($qcc);
+$tcc = mysqli_num_rows($qcc);
 $cc_topik = balikin($rcc['topik']);
 $cc_opsi1 = balikin($rcc['opsi1']);
 $cc_opsi2 = balikin($rcc['opsi2']);

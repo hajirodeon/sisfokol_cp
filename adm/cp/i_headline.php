@@ -15,11 +15,11 @@ $filenyax = "i_headline.php";
 if(isset($_GET['aksi']) && $_GET['aksi'] == 'daftar')
 	{
 	//query
-	$q = mysql_query("SELECT cp_m_posisi.* ".
+	$q = mysqli_query($koneksi, "SELECT cp_m_posisi.* ".
 						"FROM cp_m_posisi ".
 						"ORDER BY round(cp_m_posisi.no) ASC");
-	$row = mysql_fetch_assoc($q);
-	$total = mysql_num_rows($q);
+	$row = mysqli_fetch_assoc($q);
+	$total = mysqli_num_rows($q);
 
 	if ($total != 0)
 		{
@@ -68,14 +68,14 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'daftar')
 			
 			
 			//ketahui artikelnya
-			$qku = mysql_query("SELECT * FROM cp_artikel ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 									"WHERE kd_posisi = '$kd'");
-			$rku = mysql_fetch_assoc($qku);
+			$rku = mysqli_fetch_assoc($qku);
 			$ku_kd = nosql($rku['kd']);
 			$ku_judul = balikin($rku['judul']);
 			
 			//update headline
-			mysql_query("UPDATE cp_m_posisi SET kd_artikel = '$ku_kd' ".
+			mysqli_query($koneksi, "UPDATE cp_m_posisi SET kd_artikel = '$ku_kd' ".
 							"WHERE kd = '$kd'");
 			
 
@@ -93,7 +93,7 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'daftar')
 			echo '</td>
 			</tr>';
 			}
-		while ($row = mysql_fetch_assoc($q));
+		while ($row = mysqli_fetch_assoc($q));
 
 		echo '</tbody>
 		  </table>
@@ -147,11 +147,11 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'hapus')
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("UPDATE cp_m_posisi SET kd_artikel = '' ".
+		mysqli_query($koneksi, "UPDATE cp_m_posisi SET kd_artikel = '' ".
 						"WHERE kd = '$kd'");
 						
 		//del
-		mysql_query("UPDATE cp_artikel SET kd_posisi = '' ".
+		mysqli_query($koneksi, "UPDATE cp_artikel SET kd_posisi = '' ".
 						"WHERE kd_posisi = '$kd'");
 		
 		}

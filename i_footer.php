@@ -1,8 +1,8 @@
 <?php
 
 //detail
-$qku = mysql_query("SELECT * FROM cp_profil");
-$rku = mysql_fetch_assoc($qku);
+$qku = mysqli_query($koneksi, "SELECT * FROM cp_profil");
+$rku = mysqli_fetch_assoc($qku);
 $ku_nama = balikin($rku['judul']);
 $ku_isi = balikin($rku['isi']);
 $ku_telp = balikin($rku['telp']);
@@ -64,9 +64,9 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
                         	echo "<ul>";
 
 							//keahlian
-							$qyuk2 = mysql_query("SELECT * FROM cp_m_kategori ".
+							$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_m_kategori ".
 													"ORDER BY nama ASC");
-							$ryuk2 = mysql_fetch_assoc($qyuk2);
+							$ryuk2 = mysqli_fetch_assoc($qyuk2);
 							
 							do
 								{
@@ -83,7 +83,7 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 								
 								echo '<li><a href="kategori.php?katkd='.$yuk2_kd.'&'.$yuk2_nama2.'"><i class="fa fa-angle-double-right" class="footer-widget-nav" aria-hidden="true"></i> '.$yuk2_nama.'</a></li>';
 								}
-							while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+							while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 							
 							echo '</ul>';
 							?>                            
@@ -102,9 +102,9 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
                         	
                         	<?php
 							//terbaru
-							$qyuk2 = mysql_query("SELECT * FROM cp_artikel ".
+							$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 													"ORDER BY postdate DESC LIMIT 0,5");
-							$ryuk2 = mysql_fetch_assoc($qyuk2);
+							$ryuk2 = mysqli_fetch_assoc($qyuk2);
 							
 							do
 								{
@@ -140,7 +140,7 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							    </div>';
 							
 								}
-							while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+							while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 							                        	
 							?>                            
                             
@@ -191,7 +191,7 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							
 							
 							//netralkan semua, jam sebelumnya
-							mysql_query("UPDATE cp_visitor SET online = 'false' ".
+							mysqli_query($koneksi, "UPDATE cp_visitor SET online = 'false' ".
 										"WHERE round(DATE_FORMAT(postdate, '%H')) < '$jam' ".
 										"AND round(DATE_FORMAT(postdate, '%d')) = '$tanggal' ".
 										"AND round(DATE_FORMAT(postdate, '%m')) = '$bulan' ".
@@ -204,7 +204,7 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							
 							
 							//masukin ke database, yang online... dan statusnya...
-							mysql_query("INSERT INTO cp_visitor(kd, ipnya, online, postdate) VALUES ".
+							mysqli_query($koneksi, "INSERT INTO cp_visitor(kd, ipnya, online, postdate) VALUES ".
 										"('$x', '$ipku', 'true', '$today')");
 							
 							
@@ -215,13 +215,13 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							
 							
 							//detailnya, online
-							$qkun = mysql_query("SELECT DISTINCT(ipnya) AS ipya ".
+							$qkun = mysqli_query($koneksi, "SELECT DISTINCT(ipnya) AS ipya ".
 												"FROM cp_visitor ".
 												"WHERE online = 'true' ".
 												"AND round(DATE_FORMAT(postdate, '%d')) = '$tanggal' ".
 												"AND round(DATE_FORMAT(postdate, '%m')) = '$bulan' ".
 												"AND round(DATE_FORMAT(postdate, '%Y')) = '$tahun'");
-							$tkun = mysql_num_rows($qkun);
+							$tkun = mysqli_num_rows($qkun);
 							$nilx = $tkun;
 							
 							
@@ -229,11 +229,11 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							
 							
 							//detailnya, hari ini
-							$qkun = mysql_query("SELECT * FROM cp_visitor ".
+							$qkun = mysqli_query($koneksi, "SELECT * FROM cp_visitor ".
 												"WHERE round(DATE_FORMAT(postdate, '%d')) = '$tanggal' ".
 												"AND round(DATE_FORMAT(postdate, '%m')) = '$bulan' ".
 												"AND round(DATE_FORMAT(postdate, '%Y')) = '$tahun'");
-							$tkun = mysql_num_rows($qkun);
+							$tkun = mysqli_num_rows($qkun);
 							$nil1 = $tkun;
 							
 							
@@ -241,17 +241,17 @@ $ku_alamat_googlemap = balikin($rku['alamat_googlemap']);
 							
 							
 							//detailnya, bulan ini
-							$qkun = mysql_query("SELECT * FROM cp_visitor ".
+							$qkun = mysqli_query($koneksi, "SELECT * FROM cp_visitor ".
 												"WHERE round(DATE_FORMAT(postdate, '%m')) = '$bulan' ".
 												"AND round(DATE_FORMAT(postdate, '%Y')) = '$tahun'");
-							$tkun = mysql_num_rows($qkun);
+							$tkun = mysqli_num_rows($qkun);
 							$nil2 = $tkun;
 							
 							
 							
 							//detailnya, total
-							$qkun = mysql_query("SELECT * FROM cp_visitor");
-							$tkun = mysql_num_rows($qkun);
+							$qkun = mysqli_query($koneksi, "SELECT * FROM cp_visitor");
+							$tkun = mysqli_num_rows($qkun);
 							$nil3 = $tkun;
 							
 							?>

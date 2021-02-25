@@ -1,8 +1,8 @@
 <?php
 //headline
-$qyuk2 = mysql_query("SELECT * FROM cp_m_posisi ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_m_posisi ".
 						"ORDER BY nama ASC");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 
 do
 	{
@@ -13,9 +13,9 @@ do
 
 
 	//artikel e
-	$qyuk = mysql_query("SELECT * FROM cp_artikel ".
+	$qyuk = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 							"WHERE kd_posisi = '$yuk2_kd'");
-	$ryuk = mysql_fetch_assoc($qyuk);
+	$ryuk = mysqli_fetch_assoc($qyuk);
 	$yuk_kd = nosql($ryuk['kd']);
 	$yuk_judul = balikin($ryuk['judul']);
 	$yuk_filex = balikin($ryuk['filex']);
@@ -33,7 +33,7 @@ do
       </div>';
 
 	}
-while ($ryuk2 = mysql_fetch_assoc($qyuk2));
+while ($ryuk2 = mysqli_fetch_assoc($qyuk2));
 
 ?>
 

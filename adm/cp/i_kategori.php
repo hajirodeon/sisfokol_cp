@@ -67,9 +67,9 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'edit'))
 	$s = "edit";
 
 	//query
-	$qx = mysql_query("SELECT * FROM cp_m_kategori ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_m_kategori ".
 						"WHERE kd = '$kd'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_no = balikin($rowx['no']);
 	$e_nama = balikin($rowx['nama']);
 
@@ -107,10 +107,10 @@ if ((isset($_GET['aksi']) && $_GET['aksi'] == 'edit'))
 if(isset($_GET['aksi']) && $_GET['aksi'] == 'daftar')
 	{
 	//query
-	$q = mysql_query("SELECT * FROM cp_m_kategori ".
+	$q = mysqli_query($koneksi, "SELECT * FROM cp_m_kategori ".
 						"ORDER BY round(no) ASC");
-	$row = mysql_fetch_assoc($q);
-	$total = mysql_num_rows($q);
+	$row = mysqli_fetch_assoc($q);
+	$total = mysqli_num_rows($q);
 
 	if ($total != 0)
 		{
@@ -154,7 +154,7 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'daftar')
 			<td>'.$e_kategori.'</td>
 			</tr>';
 			}
-		while ($row = mysql_fetch_assoc($q));
+		while ($row = mysqli_fetch_assoc($q));
 
 		echo '<tr valign="top" bgcolor="'.$warnaheader.'">
 		<td><input type="checkbox" class="checkAll"></td>
@@ -217,15 +217,15 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'simpan')
 	else
 		{
 		//cek
-		$qcc = mysql_query("SELECT * FROM cp_m_kategori ".
+		$qcc = mysqli_query($koneksi, "SELECT * FROM cp_m_kategori ".
 								"WHERE no = '$kode'");
-		$rcc = mysql_fetch_assoc($qcc);
-		$tcc = mysql_num_rows($qcc);
+		$rcc = mysqli_fetch_assoc($qcc);
+		$tcc = mysqli_num_rows($qcc);
 
 		if (empty($tcc))
 			{
 			//query
-			mysql_query("INSERT INTO cp_m_kategori(kd, no, nama, postdate) VALUES ".
+			mysqli_query($koneksi, "INSERT INTO cp_m_kategori(kd, no, nama, postdate) VALUES ".
 							"('$x', '$kode', '$kategori', '$today')");
 
 
@@ -289,7 +289,7 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'simpan2')
 	else
 		{
 		//query
-		mysql_query("UPDATE cp_m_kategori SET no = '$kode', ".
+		mysqli_query($koneksi, "UPDATE cp_m_kategori SET no = '$kode', ".
 						"nama = '$kategori' ".
 						"WHERE kd = '$kd'");
 
@@ -330,7 +330,7 @@ if(isset($_GET['aksi']) && $_GET['aksi'] == 'hapus')
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_m_kategori ".
+		mysqli_query($koneksi, "DELETE FROM cp_m_kategori ".
 					"WHERE kd = '$kd'");
 		}
 

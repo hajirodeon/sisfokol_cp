@@ -100,7 +100,7 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			//insert
-			mysql_query("INSERT INTO cp_kalender(kd, tgl1, tgl2, judul, postdate) VALUES ".
+			mysqli_query($koneksi, "INSERT INTO cp_kalender(kd, tgl1, tgl2, judul, postdate) VALUES ".
 							"('$e_kd', '$e_tgl1', '$e_tgl2', '$e_isi', '$today')");
 
 
@@ -122,7 +122,7 @@ if ($_POST['btnSMP'])
 			        $tglnya = date("Y:m:d", $i);
 					
 					//masukin
-					mysql_query("INSERT INTO cp_kalender_detail(kd, kalender_kd, tgli, judul, postdate) VALUES ".
+					mysqli_query($koneksi, "INSERT INTO cp_kalender_detail(kd, kalender_kd, tgli, judul, postdate) VALUES ".
 									"('$xyz', '$e_kd', '$tglnya', '$e_isi', '$today')");					  
 				    }
 				}
@@ -143,7 +143,7 @@ if ($_POST['btnSMP'])
 		if ($s == "edit")
 			{
 			//update
-			mysql_query("UPDATE cp_kalender SET tgl1 = '$e_tgl1', ".
+			mysqli_query($koneksi, "UPDATE cp_kalender SET tgl1 = '$e_tgl1', ".
 							"tgl2 = '$e_tgl2', ".
 							"judul = '$e_isi', ".
 							"postdate = '$today' ".
@@ -151,7 +151,7 @@ if ($_POST['btnSMP'])
 
 							
 			//hapus dulu detailnya
-			mysql_query("DELETE FROM cp_kalender_detail ".
+			mysqli_query($koneksi, "DELETE FROM cp_kalender_detail ".
 							"WHERE kalender_kd = '$e_kd'");
 			
 			
@@ -174,7 +174,7 @@ if ($_POST['btnSMP'])
 			        $tglnya = date("Y:m:d", $i);
 					
 					//masukin
-					mysql_query("INSERT INTO cp_kalender_detail(kd, kalender_kd, tgli, judul, postdate) VALUES ".
+					mysqli_query($koneksi, "INSERT INTO cp_kalender_detail(kd, kalender_kd, tgli, judul, postdate) VALUES ".
 									"('$xyz', '$e_kd', '$tglnya', '$e_isi', '$today')");					  
 				    }
 				}
@@ -209,12 +209,12 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_kalender ".
+		mysqli_query($koneksi, "DELETE FROM cp_kalender ".
 						"WHERE kd = '$kd'");
 						
 						
 		//hapus detailnya
-		mysql_query("DELETE FROM cp_kalender_detail ".
+		mysqli_query($koneksi, "DELETE FROM cp_kalender_detail ".
 						"WHERE kalender_kd = '$kd'");
 		}
 
@@ -299,9 +299,9 @@ echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" na
 if (($s == "baru") OR ($s == "edit"))
 	{
 	//edit
-	$qx = mysql_query("SELECT * FROM cp_kalender ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_kalender ".
 						"WHERE kd = '$kd'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_kd = nosql($rowx['kd']);
 	$e_tgl1x = balikin($rowx['tgl1']);
 	$e_tgl2x = balikin($rowx['tgl2']);
@@ -380,11 +380,11 @@ else
 					"ORDER BY tgl1 DESC";
 	$sqlresult = $sqlcount;
 	
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 
@@ -439,7 +439,7 @@ else
 			<td>'.$e_isi.'</td>
 	        </tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 	
 	

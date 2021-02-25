@@ -77,7 +77,7 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			//insert
-			mysql_query("INSERT INTO cp_m_menu(kd, no, nama, postdate) VALUES ".
+			mysqli_query($koneksi, "INSERT INTO cp_m_menu(kd, no, nama, postdate) VALUES ".
 							"('$e_kd', '$e_no', '$e_nama', '$today')");
 
 
@@ -92,7 +92,7 @@ if ($_POST['btnSMP'])
 		//jika update
 		if ($s == "edit")
 			{
-			mysql_query("UPDATE cp_m_menu SET no = '$e_no', ".
+			mysqli_query($koneksi, "UPDATE cp_m_menu SET no = '$e_no', ".
 							"nama = '$e_nama', ".
 							"postdate = '$today' ".
 							"WHERE kd = '$e_kd'");
@@ -126,7 +126,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_m_menu ".
+		mysqli_query($koneksi, "DELETE FROM cp_m_menu ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -174,9 +174,9 @@ echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" na
 if (($s == "baru") OR ($s == "edit"))
 	{
 	//edit
-	$qx = mysql_query("SELECT * FROM cp_m_menu ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_m_menu ".
 						"WHERE kd = '$kd'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_kd = nosql($rowx['kd']);
 	$e_no = balikin($rowx['no']);
 	$e_nama = balikin($rowx['nama']);
@@ -232,11 +232,11 @@ else
 					"ORDER BY no ASC";
 	$sqlresult = $sqlcount;
 	
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 
@@ -287,7 +287,7 @@ else
 			<td>'.$e_nama.'</td>
 	        </tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 	
 	

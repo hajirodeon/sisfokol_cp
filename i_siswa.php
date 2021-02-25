@@ -1,8 +1,8 @@
 <?php
 //foto
-$qyuk2 = mysql_query("SELECT * FROM cp_m_siswa ".
+$qyuk2 = mysqli_query($koneksi, "SELECT * FROM cp_m_siswa ".
 						"ORDER BY RAND()");
-$ryuk2 = mysql_fetch_assoc($qyuk2);
+$ryuk2 = mysqli_fetch_assoc($qyuk2);
 $yuk2_kd = nosql($ryuk2['kd']);
 $yuk2_nama = balikin($ryuk2['nama']);
 $yuk2_filex = balikin($ryuk2['filex1']);

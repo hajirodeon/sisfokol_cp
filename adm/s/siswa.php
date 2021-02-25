@@ -102,7 +102,7 @@ if ($_POST['btnSMP'])
 		//jika update
 		if ($s == "edit")
 			{
-			mysql_query("UPDATE cp_m_siswa SET nis = '$e_nis', ".
+			mysqli_query($koneksi, "UPDATE cp_m_siswa SET nis = '$e_nis', ".
 							"tapel = '$e_tapel', ".
 							"kelas = '$e_kelas', ".
 							"nis = '$e_nis', ".
@@ -110,7 +110,7 @@ if ($_POST['btnSMP'])
 							"WHERE kd = '$kd'");
 
 			//update
-			mysql_query("UPDATE cp_m_siswa SET filex1 = '$namabaru', ".
+			mysqli_query($koneksi, "UPDATE cp_m_siswa SET filex1 = '$namabaru', ".
 							"postdate = '$today' ".
 							"WHERE kd = '$kd'");
 
@@ -125,10 +125,10 @@ if ($_POST['btnSMP'])
 		if ($s == "baru")
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM cp_m_siswa ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM cp_m_siswa ".
 									"WHERE nis = '$e_nis'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 
 			//nek ada
 			if ($tcc != 0)
@@ -141,12 +141,12 @@ if ($_POST['btnSMP'])
 				}
 			else
 				{
-				mysql_query("INSERT INTO cp_m_siswa(kd, nis, tapel, kelas, nama, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO cp_m_siswa(kd, nis, tapel, kelas, nama, postdate) VALUES ".
 								"('$kd', '$e_nis', '$e_tapel', '$e_kelas', '$e_nama', '$today')");
 
 								
 				//update
-				mysql_query("UPDATE cp_m_siswa SET filex1 = '$namabaru', ".
+				mysqli_query($koneksi, "UPDATE cp_m_siswa SET filex1 = '$namabaru', ".
 								"postdate = '$today' ".
 								"WHERE kd = '$kd'");
 											
@@ -179,7 +179,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_m_siswa ".
+		mysqli_query($koneksi, "DELETE FROM cp_m_siswa ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -223,9 +223,9 @@ if (($s == "baru") OR ($s == "edit"))
 	{
 	$kdx = nosql($_REQUEST['kd']);
 
-	$qx = mysql_query("SELECT * FROM cp_m_siswa ".
+	$qx = mysqli_query($koneksi, "SELECT * FROM cp_m_siswa ".
 						"WHERE kd = '$kdx'");
-	$rowx = mysql_fetch_assoc($qx);
+	$rowx = mysqli_fetch_assoc($qx);
 	$e_nis = balikin($rowx['nis']);
 	$e_nama = balikin($rowx['nama']);
 	$e_tapel = balikin($rowx['tapel']);
@@ -478,11 +478,11 @@ else
 	
 	$sqlresult = $sqlcount;
 	
-	$count = mysql_num_rows(mysql_query($sqlcount));
+	$count = mysqli_num_rows(mysqli_query($sqlcount));
 	$pages = $p->findPages($count, $limit);
-	$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+	$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 	$pagelist = $p->pageList($_GET['page'], $pages, $target);
-	$data = mysql_fetch_array($result);
+	$data = mysqli_fetch_array($result);
 
 
 	echo '<form action="'.$filenya.'" method="post" name="formx">
@@ -563,7 +563,7 @@ else
 			</td>
 	        </tr>';
 			}
-		while ($data = mysql_fetch_assoc($result));
+		while ($data = mysqli_fetch_assoc($result));
 		}
 	
 	

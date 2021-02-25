@@ -54,7 +54,7 @@ if($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_bukutamu ".
+		mysqli_query($koneksi, "DELETE FROM cp_bukutamu ".
 						"WHERE kd = '$kd'");
 		}
 
@@ -98,11 +98,11 @@ $sqlcount = "SELECT * FROM cp_bukutamu ".
 				"ORDER BY postdate DESC";
 $sqlresult = $sqlcount;
 
-$count = mysql_num_rows(mysql_query($sqlcount));
+$count = mysqli_num_rows(mysqli_query($sqlcount));
 $pages = $p->findPages($count, $limit);
-$result = mysql_query("$sqlresult LIMIT ".$start.", ".$limit);
+$result = mysqli_query($koneksi, "$sqlresult LIMIT ".$start.", ".$limit);
 $pagelist = $p->pageList($_GET['page'], $pages, $target);
-$data = mysql_fetch_array($result);
+$data = mysqli_fetch_array($result);
 
 
 if ($count != 0)
@@ -182,7 +182,7 @@ if ($count != 0)
 		<td>'.$i_isi.'</td>
 		</tr>';
 		}
-	while ($data = mysql_fetch_assoc($result));
+	while ($data = mysqli_fetch_assoc($result));
 
 	echo '</tbody>
 		  </table>

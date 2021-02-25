@@ -41,7 +41,7 @@ if ($_POST['btnSMP'])
 		}
 	else
 		{
-		mysql_query("UPDATE cp_sambutan_ks SET nama = '$e_nama', ".
+		mysqli_query($koneksi, "UPDATE cp_sambutan_ks SET nama = '$e_nama', ".
 						"isi = '$e_isi', ".
 						"filex1 = '$namabaru', ".
 						"postdate = '$today'");
@@ -80,8 +80,8 @@ require("../../template/js/swap.js");
 
 <?php
 //view //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-$qx = mysql_query("SELECT * FROM cp_sambutan_ks");
-$rowx = mysql_fetch_assoc($qx);
+$qx = mysqli_query($koneksi, "SELECT * FROM cp_sambutan_ks");
+$rowx = mysqli_fetch_assoc($qx);
 $e_nama = balikin($rowx['nama']);
 $e_isi = balikin($rowx['isi']);
 $e_filex1 = balikin($rowx['filex1']);

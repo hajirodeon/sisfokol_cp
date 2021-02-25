@@ -52,10 +52,10 @@ if ($_POST['btnSMP'])
 	else
 		{
 		//hapus yang ada...
-		mysql_query("DELETE FROM cp_polling");
+		mysqli_query($koneksi, "DELETE FROM cp_polling");
 
 		//entry baru
-		mysql_query("INSERT INTO cp_polling(kd, topik, opsi1, opsi2, opsi3, opsi4, opsi5, postdate) VALUES ".
+		mysqli_query($koneksi, "INSERT INTO cp_polling(kd, topik, opsi1, opsi2, opsi3, opsi4, opsi5, postdate) VALUES ".
 						"('$x', '$topik', '$opsi1', '$opsi2', '$opsi3', '$opsi4', '$opsi5', '$today')");
 
 		//diskonek
@@ -152,9 +152,9 @@ else
 
 
 	//cek
-	$qcc = mysql_query("SELECT * FROM cp_polling");
-	$rcc = mysql_fetch_assoc($qcc);
-	$tcc = mysql_num_rows($qcc);
+	$qcc = mysqli_query($koneksi, "SELECT * FROM cp_polling");
+	$rcc = mysqli_fetch_assoc($qcc);
+	$tcc = mysqli_num_rows($qcc);
 	$cc_topik = balikin($rcc['topik']);
 	$cc_opsi1 = balikin($rcc['opsi1']);
 	$cc_opsi2 = balikin($rcc['opsi2']);

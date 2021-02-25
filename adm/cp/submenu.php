@@ -45,16 +45,16 @@ if ($_POST['btnSMP'])
 		if (empty($s))
 			{
 			//cek
-			$qcc = mysql_query("SELECT * FROM cp_m_submenu ".
+			$qcc = mysqli_query($koneksi, "SELECT * FROM cp_m_submenu ".
 									"WHERE kd_menu = '$dmenu' ".
 									"no = '$kode'");
-			$rcc = mysql_fetch_assoc($qcc);
-			$tcc = mysql_num_rows($qcc);
+			$rcc = mysqli_fetch_assoc($qcc);
+			$tcc = mysqli_num_rows($qcc);
 	
 			if (empty($tcc))
 				{
 				//query
-				mysql_query("INSERT INTO cp_m_submenu(kd, kd_menu, no, nama, postdate) VALUES ".
+				mysqli_query($koneksi, "INSERT INTO cp_m_submenu(kd, kd_menu, no, nama, postdate) VALUES ".
 								"('$x', '$dmenu', '$kode', '$submenu', '$today')");
 	
 	
@@ -77,7 +77,7 @@ if ($_POST['btnSMP'])
 		else if ($s == "edit")
 			{
 			//query
-			mysql_query("UPDATE cp_m_submenu SET kd_menu = '$dmenu', ".
+			mysqli_query($koneksi, "UPDATE cp_m_submenu SET kd_menu = '$dmenu', ".
 							"no = '$kode', ".
 							"nama = '$submenu' ".
 							"WHERE kd = '$kd'");
@@ -109,7 +109,7 @@ if ($_POST['btnHPS'])
 		$kd = nosql($_POST["$yuhu"]);
 
 		//del
-		mysql_query("DELETE FROM cp_m_submenu ".
+		mysqli_query($koneksi, "DELETE FROM cp_m_submenu ".
 					"WHERE kd = '$kd'");
 		}
 
@@ -145,9 +145,9 @@ require("../../inc/js/checkall.js");
 
 //view //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //query
-$qx = mysql_query("SELECT * FROM cp_m_submenu ".
+$qx = mysqli_query($koneksi, "SELECT * FROM cp_m_submenu ".
 					"WHERE kd = '$kd'");
-$rowx = mysql_fetch_assoc($qx);
+$rowx = mysqli_fetch_assoc($qx);
 $e_no = balikin($rowx['no']);
 $e_nama = balikin($rowx['nama']);
 
@@ -159,9 +159,9 @@ Menu :
 <select name="dmenu" id="dmenu" class="btn btn-warning">
 <option value="" selected></option>';
 
-$qst = mysql_query("SELECT * FROM cp_m_menu ".
+$qst = mysqli_query($koneksi, "SELECT * FROM cp_m_menu ".
 						"ORDER BY round(no) ASC");
-$rowst = mysql_fetch_assoc($qst);
+$rowst = mysqli_fetch_assoc($qst);
 
 do
 	{
@@ -171,7 +171,7 @@ do
 
 	echo '<option value="'.$st_kd.'">'.$st_nama1.'</option>';
 	}
-while ($rowst = mysql_fetch_assoc($qst));
+while ($rowst = mysqli_fetch_assoc($qst));
 
 echo '</select>
 </p>
@@ -200,14 +200,14 @@ Nama :
 
 
 //query
-$q = mysql_query("SELECT cp_m_submenu.*, ".
+$q = mysqli_query($koneksi, "SELECT cp_m_submenu.*, ".
 						"cp_m_menu.nama AS mmenu ".
 						"FROM cp_m_submenu, cp_m_menu ".
 						"WHERE cp_m_submenu.kd_menu = cp_m_menu.kd ".
 						"ORDER BY cp_m_menu.nama ASC, ".
 						"round(cp_m_submenu.no) ASC");
-$row = mysql_fetch_assoc($q);
-$total = mysql_num_rows($q);
+$row = mysqli_fetch_assoc($q);
+$total = mysqli_num_rows($q);
 
 
 echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" name="formx3">
@@ -255,14 +255,14 @@ echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" na
 			
 			
 			//ketahui artikelnya
-			$qku = mysql_query("SELECT * FROM cp_artikel ".
+			$qku = mysqli_query($koneksi, "SELECT * FROM cp_artikel ".
 									"WHERE kd_submenu = '$kd'");
-			$rku = mysql_fetch_assoc($qku);
+			$rku = mysqli_fetch_assoc($qku);
 			$ku_kd = nosql($rku['kd']);
 			$ku_judul = balikin($rku['judul']);
 			
 			//update submenu
-			mysql_query("UPDATE cp_m_submenu SET kd_artikel = '$ku_kd' ".
+			mysqli_query($koneksi, "UPDATE cp_m_submenu SET kd_artikel = '$ku_kd' ".
 							"WHERE kd = '$kd'");
 			
 		
@@ -289,7 +289,7 @@ echo '<form action="'.$filenya.'" enctype="multipart/form-data" method="post" na
 			echo '</td>
 			</tr>';
 			}
-		while ($row = mysql_fetch_assoc($q));
+		while ($row = mysqli_fetch_assoc($q));
 		}
 	
 	echo '</tbody>
